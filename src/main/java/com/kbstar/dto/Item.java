@@ -12,11 +12,10 @@ import java.util.Date;
 @ToString
 public class Item {
     // 속성값만 입력해도 가능.
-    private int id;
+    private int id; //상품관리번호 자동으로 채번되게 하려면 int(오라클 : 시퀀스) & xml 작성 유의
     private String name;
-    private String position;
-    private String office;
-    private String age;
-    private Date startdate;
-    private String salary;
+    private int price;
+    private String imgname;
+    private Date rdate; // 상품 등록일자
+
 }

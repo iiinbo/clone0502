@@ -10,7 +10,7 @@ import lombok.*;
 @ToString
 public class Cust {
     // 속성값만 입력해도 가능.
-    private String id;
+    private String id; // 회원이 만드는 id라서 string
     private String pwd;
     private String name;
 
