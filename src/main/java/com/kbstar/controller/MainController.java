@@ -86,6 +86,16 @@ public class MainController {
         model.addAttribute("center", nextPage); // center에는 nextPage 뿌려져라.
         return "index";
     }
+    // 4-2. 로그인 고객의 로그아웃하기
+    @RequestMapping("/logoutimpl") // 127.0.0.1:8080/logoutimpl
+    public String logoutimpl(Model model, HttpSession session){
+        if( session != null ){
+            session.invalidate(); // invalidate : 서버에서 session 정보를 없애기.
+        }
+
+        return "redirect:/";
+    }
+
     // 5. 본인의 회원정보 상세보기
     @RequestMapping("/adminfo")
     public String custinfo(Model model, String id) throws Exception {
