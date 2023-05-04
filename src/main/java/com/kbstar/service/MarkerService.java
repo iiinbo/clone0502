@@ -1,6 +1,7 @@
 package com.kbstar.service;
 
 import com.kbstar.dto.Marker;
+import com.kbstar.dto.MarkerSearch;
 import com.kbstar.frame.KBService;
 import com.kbstar.mapper.MarkerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +51,10 @@ public class MarkerService implements KBService<Integer, Marker> {
     // 함수명은 맘대로 지었다.
     public List<Marker> getmybob(String loc) throws Exception {
         return  mapper.getmybob(loc); // 전체조회해주겠다.. dao에서;
+    }
+    // 함수명은 맘대로 지었다.
+    public List<Marker> search(MarkerSearch sc) throws Exception {
+        return  mapper.search(sc); // 검색한 결과에 맞게 전체조회해주겠다..
     }
 
 }

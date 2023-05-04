@@ -4,7 +4,18 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.ItemMapper">
-<!--KBmapper->CustMapper에 있는 함수 명칭(select,insert,...etc)이 select문의 id로 들어옴-->
+<!--KBmapper->ItemMapper 있는 함수 명칭(select,insert,...etc)이 select문의 id로 들어옴-->
+    <select id="search" parameterType="itemSearch" resultType="item">
+        SELECT * FROM item
+        <where>
+            <if test="price != 0 and !price.equals('')">
+                price=#{price}
+            </if>
+            <if test="name != null and !name.equals('')">
+                AND name LIKE '%'||#{name}||'%'
+            </if>
+        </where>
+    </select>
     <select id="select" parameterType="Integer" resultType="item">
         SELECT * FROM item WHERE id=#{id}
     </select>
@@ -16,7 +27,7 @@
         INSERT INTO item VALUES (item_seq.NEXTVAL,#{name},#{price},#{imgname},SYSDATE)
     </insert>
     <update id="update" parameterType="item">
-        UPDATE item SET name=#{name},price=#{price},imgname=#{imgname},,SYSDATE WHERE id=#{id}
+        UPDATE item SET name=#{name},price=#{price},imgname=#{imgname} WHERE id=#{id}
     </update>
     <delete id="delete" parameterType="Integer">
         DELETE FROM item WHERE id=#{id}

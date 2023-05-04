@@ -5,8 +5,19 @@
 <!--DAO 연결 완료-->
 <mapper namespace="com.kbstar.mapper.MarkerMapper">
 
-<!--작성예시. CustMapper(는,kbmapper 인터페이스에서 상속받았지) 에서 사용할 함수들의 명칭이 아래 적힌다. -->
-
+<!--작성예시. MarkerMapper(는,kbmapper 인터페이스에서 상속받았지) 에서 사용할 함수들의 명칭이 아래 적힌다. -->
+    <!-- marker 에서 search해주는 기능을 위해 추가했던 함수 -->
+    <select id="search" parameterType="markerSearch" resultType="marker">
+        SELECT * FROM marker
+                 <where>
+                    <if test="loc != null and !loc.equals('')">
+                        loc = UPPER(#{loc})
+                    </if>
+                     <if test="title != null and !title.equals('')">
+                         AND title LIKE '%'||#{title}||'%'
+                     </if>
+                 </where>
+    </select>
     <select id="select" parameterType="Integer" resultType="marker">
         SELECT * FROM marker WHERE id=#{id}
     </select>
@@ -19,11 +30,11 @@
         SELECT * FROM marker
     </select>
     <insert id="insert" parameterType="marker">
-        INSERT INTO marker VALUES (marker.NEXTVAL,#{title},#{target},#{lat},#{lng},#{img},#{loc})
+        INSERT INTO marker VALUES (marker_seq.NEXTVAL,#{title},#{target},#{lat},#{lng},#{img},#{loc})
     </insert>
     <!-- id제외, 6가지 칼럼 수정 가능 -->
     <update id="update" parameterType="marker">
-        UPDATE marker SET title=#{title},target=#{target},lat=#{lat},lng=#{lng},img=#{img},loc=#{loc} WHERE id=#{id}
+        UPDATE marker SET title=#{title},target=#{target},lat=#{lat},lng=#{lng},loc=#{loc},img=#{img} WHERE id=#{id}
     </update>
     <delete id="delete" parameterType="Integer">
         DELETE FROM marker WHERE id=#{id}
