@@ -22,7 +22,12 @@
           and c.item_id = it.id
           and c.cust_id = #{cid}
     </select>
-
+    <select id="getcartmounttotal"  parameterType="Integer"  resultType="cart">
+        select c.id, c.item_id, c.cnt, c.rdate
+             , it.name  AS item_name, it.price AS item_price, it.imgname AS item_imgname, (c.cnt * it.price) AS total
+        from cart c, item it
+        where c.item_id = it.id
+    </select>
 
 <!-- 장바구니 화면에 뿌릴 컬럼값이 많으면 아래처럼~(sql에서 돌아가는지 보고 그대로 복붙. ;은 지우고)
   -->

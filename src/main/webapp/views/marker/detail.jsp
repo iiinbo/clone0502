@@ -9,8 +9,58 @@
             width: 550px;
             height: 450px;
         }
+        #map{
+            width: 220px;
+            height: 350px;
+            border: solid 1px gray;
+        }
     </style>
     <script>
+        // 2- 맛집 위치 지도로 보여주기
+        let marker_detail_map = {
+            map:null,
+            init:function(){
+                // 아래부턴 ''지도'' 나타내기
+                var mapContainer = document.querySelector('#map'); // map : 지도뿌리는 영역의 id
+                // center : marker 컨트롤러에서, 맛집정보를 담은 명칭은 markerdetail
+                var mapOption =  {
+                    center: new kakao.maps.LatLng(${markerdetail.lat},${markerdetail.lng}), // 지도의 중심좌표
+                    level: 3
+                };
+                map = new kakao.maps.Map(mapContainer, mapOption);
+
+                var mapTypeControl = new kakao.maps.MapTypeControl();
+                map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+                var zoomControl = new kakao.maps.ZoomControl();
+                map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+                // 아래부턴 ''노란색 마커'' 표시
+                var markerPosition  = new kakao.maps.LatLng(${markerdetail.lat},${markerdetail.lng});
+                var marker = new kakao.maps.Marker({
+                    position: markerPosition
+                });
+                marker.setMap(map);
+
+                var iwContent = '<img src="/uimg/${markerdetail.img}" style="width:80px"><div style="padding:5px;">Hello World!</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+
+                var infowindow = new kakao.maps.InfoWindow({
+                    content : iwContent
+                });
+
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    infowindow.open(map, marker);
+                });
+
+                kakao.maps.event.addListener(marker, 'mouseout', function() {
+                    infowindow.close();
+                });
+                // 마커 클릭 하면 해당맛집 url 연동(location).
+                kakao.maps.event.addListener(marker, 'click', function() {
+                    location.href='${markerdetail.target}';
+                });
+            }
+        };
+
+        // 1- 맛집 정보 수정/삭제하기 기능
         let marker_detail = {
             init:function (){
                 $('#update_btn').click( function (){
@@ -34,13 +84,14 @@
                 $('#detail_form').submit(); // 전송.
             }
         };
-
-
-        //실행
+        //실행(2가지 기능 함께 적기)
         $(function (){
             marker_detail.init();
+            marker_detail_map.init();
         });
     </script>
+
+
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
@@ -54,8 +105,8 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <%-- 표(테이블)로 db에 담긴 사용자정보(list. 화면에서 뿌릴 땐  로 이름 지었다.) 출력하기   --%>
-                    <%--  아래는, web05 버전  --%>
+                    <%-- 표(테이블)로 db에 담긴 사용자정보(list. marker 컨트롤러가 화면에서 뿌릴 땐
+                        markerdetail로 이름 지었다.) 출력하기   --%>
                     <div class="col-sm-12">
                         <div class ="container col-sm-12">
 
@@ -69,6 +120,7 @@
                                      그리고, 1. 이미지 파일에서 이름 따와서 교체하고, 2. 파일덩어리도 다른걸로 저장한다. --%>
                                     <input type="hidden" name="img" value="${markerdetail.img}" />
                                 </div>
+                                <%-- 상세메뉴는 희망해서 자발적으로 추가한 부분 --%>
                                 <a href="/marker/markerdesc?marker_id=${obj.id}" class="btn btn-primary btn-block">등록된 상세메뉴보기</a>
                                 <div class="form-floating mt-3 mb-3">
                                     <label for="id">id</label>
@@ -109,7 +161,15 @@
                                 <button type="button" class="btn btn-primary"  id="update_btn">수정하기</button>
                                 <button type="button" class="btn btn-primary"  id="delete_btn">삭제하기</button>
                             </form>
+                                <%--  맨 하단 기능 추가하기 : marker가 가리키는 좌표 지도에 나타내기
+                                       주의! 지도를 표시할 영역을 너비/높이/선으로 표시 --%>
+                                <div class="card-body">
+                                    <div class="row ">
+                                        <div class="col-sm-10" id="map">
 
+                                        </div>
+                                    </div>
+                                </div>
                         </div>
                     </div><%--  복사끝   --%>
                 </div>

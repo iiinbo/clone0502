@@ -40,4 +40,8 @@ public class SalesService implements KBService<String, Sales> {
     public List<Sales> get() throws Exception {
         return mapper.selectall();
     }
+    // 새로운 함수 짓기 : 매출액 가져오는 조건 설정 위한 함수
+    public List<Sales> search() throws Exception {
+        return mapper.search();
+    }
 }

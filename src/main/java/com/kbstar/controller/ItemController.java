@@ -1,6 +1,7 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.*;
+import com.kbstar.service.CartService;
 import com.kbstar.service.ItemService;
 import com.kbstar.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,7 @@ public class ItemController {
     @Value("${uploadimgdir}") // 이렇게 세팅하면, 애플리케이션 프로퍼티에 2.으로 정해둔, uimg/ 폴더에 집어넣는다.
     String imgdir;
     String dir = "item/"; // 매번, item 라는 폴더 경로를 붙이기 귀찮을 때.
+
 
 
     // 1-1. item - "add" 클릭 시 나오는 center 페이지
@@ -116,11 +118,11 @@ public class ItemController {
         return  "redirect:/item/all" ; // 다시 상품 전체조회 페이지로 회귀
     }
     // 3-2. item- "all" : detail에서 search기능 이용한 뒤 center 페이지
-    @RequestMapping("/search") // 127.0.0.1/marker/search
+    @RequestMapping("/search") // 127.0.0.1/item/search
     public String search(Model model, ItemSearch ic) throws Exception {
         List<Item> list = service.search(ic);
 
-        model.addAttribute("ic", ic); // ms를 다시 보내서 이용
+        model.addAttribute("ic", ic); // ic를 다시 보내서 이용
         model.addAttribute("itemlist", list); //jsp파일에서 뿌릴 이름 정하기
         model.addAttribute("center", dir + "all"); // center만 변경
         model.addAttribute("leftNav", "leftNav");

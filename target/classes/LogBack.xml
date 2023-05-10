@@ -25,9 +25,9 @@
             <maxHistory>30</maxHistory>
         </rollingPolicy>
     </appender>
-    <!--  2. 2번 파일명 정하기 : 2번째 쌓을 로그들은 custinfo.log 라는 파일명으로 할래 -->
+    <!--  2. 2번 파일명 정하기 : 2번째 쌓을 로그들은 cartinfo.log 라는 파일명으로 할래 -->
     <appender name="FILE2" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOGS_DIR}/custinfo.log</file>
+        <file>${LOGS_DIR}/cartinfo.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss}:%-3relative, %msg%n</pattern>
         </encoder>
@@ -49,8 +49,8 @@
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
     </logger>
-    <!--  2번 파일명 추가 : CustController가 동작(INFO : 정상 포함)하면 log 쌓는다.  -->
-    <logger name="com.kbstar.controller.CustController" level="INFO">
+    <!--  2번 파일명 추가 : ScheduleController가 동작(INFO : 정상 포함)하면 log 쌓는다.  -->
+    <logger name="com.kbstar.controller.ScheduleController" level="INFO">
         <appender-ref ref="FILE2" />
     </logger>
 

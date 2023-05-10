@@ -15,5 +15,5 @@ import java.util.List;
 public interface CartMapper extends KBMapper<Integer, Cart> {
     // 로그인한 회원이 담은 본인의 장바구니만 조회되도록 할 것이다.(기존 기능들 외 추가하기)
     public List<Cart> getmycart(String cid); // 의미 : 그러기 위해, DB에서 회원 id 가져오기(헷갈리니까 명칭 바꿈)
-
+    public List<Cart> getcartmounttotal(); // 카트에 담긴 item 금액 누적
 }

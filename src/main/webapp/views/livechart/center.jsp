@@ -8,8 +8,9 @@
     <script>
         let chart04 = {
             init:function (){
-                //차트 뿌리기
-                var defaultData = 'http://127.0.0.1/logs/custinfo.log'; // 나의 log로 바꿈.
+                //차트 뿌리기 (나의 서버주소로 바꾸기.)
+                // adminserver : 관리자용 서버
+                var defaultData = '${adminserver}/logs/cartinfo.log'; // 나의 log로 바꿈.
                 var urlInput = document.getElementById('fetchURL');
                 var pollingCheckbox = document.getElementById('enablePolling');
                 var pollingInput = document.getElementById('pollingTime');

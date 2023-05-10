@@ -9,9 +9,10 @@ import lombok.*;
 @Getter
 @ToString
 public class ItemSearch {
-    // 검색조건
-    private String name;
-    private int price;
-
+    // item의 검색조건
+    private String name; // item의 이름
+    private Integer price; // item의 가격, Integer : null 가능
+    private String startdate; // item 등록일자
+    private String enddate;
 
 }

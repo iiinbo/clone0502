@@ -132,6 +132,15 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>Live Chart</span></a>
         </li>
+        <!-- Nav Item - Websocket 로그인 고객에게만 보이도록! -->
+        <!-- if : 로그인 안한 고객은 안보이고 / 로그인 고객은 websoket 링크 보이게 -->
+        <c:if test="${loginadm != null}" >
+        <li class="nav-item">
+            <a class="nav-link" href="/websocket">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>Websocket</span></a>
+        </li>
+        </c:if>
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 

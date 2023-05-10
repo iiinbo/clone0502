@@ -12,13 +12,15 @@ public class WebMvcConfig implements WebMvcConfigurer {
     // @value : import할 때, 두번째 보이는 spring으로 해줄 것
     @Value("${imgdir}")
     String imgdir;
+    @Value("${logdir}")
+    String logdir;
 
 
     // 이미지 또는 로그 쌓이는 폴더명 수정해줄 것! (애플리케이션에 기재한 것과 동일하게. img -> uimg)
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/uimg/**").addResourceLocations(imgdir);
-        //registry.addResourceHandler("/logs/**").addResourceLocations(logdir);
+        registry.addResourceHandler("/logs/**").addResourceLocations(logdir);
     }
 
 }

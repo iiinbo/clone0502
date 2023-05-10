@@ -22,6 +22,8 @@
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <!-- Custom styles for this page -->
     <link href="/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <%-- 한데 모은 자바스크립트 파일 가져오기   --%>
+    <script src="/js/index0509.js"></script>
     <!-- 차트 -->
     <%-- chart01 : 차트 생성 --%>
     <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -34,8 +36,19 @@
     <script src="https://code.highcharts.com/modules/drilldown.js"></script>
     <%-- 라이브 차트 만들기  --%>
     <script src="https://code.highcharts.com/modules/data.js"></script>
-    <%--jquery--%>
+    <%-- jquery --%>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <%-- map 지도 --%>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cb8fe6776643b3a6ad18f3e2f14a93c2"></script>
+    <%-- 웹소켓 사용하기 위한 라이브러리 --%>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <%-- 대시보드 : 중간 우측 차트 --%>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -286,7 +299,7 @@
             </nav>
             <!-- End of Topbar -->
 
-            <!-- center.jsp -->
+            <!-- websocket.jsp -->
             <c:choose>
                 <c:when test="${center == null}">
                     <jsp:include page="center.jsp"/>

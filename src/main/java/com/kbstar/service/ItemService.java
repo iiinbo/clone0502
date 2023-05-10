@@ -49,7 +49,7 @@ public class ItemService implements KBService<Integer, Item> {
         return mapper.selectall();
     }
 
-    // 새로운 함수 짓기
+    // 새로운 함수 짓기 : item들의 검색조건을 설정 위한 함수
     public List<Item> search(ItemSearch ic) throws Exception {
         return mapper.search( ic );
     }

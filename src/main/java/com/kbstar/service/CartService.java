@@ -46,4 +46,8 @@ public class CartService implements KBService<Integer, Cart> {
     public List<Cart> getmycart(String cid) throws Exception {
         return mapper.getmycart(cid);
     }
+    // 조회 하면, cart에 담긴 item들의 전체가격 누적(개수*item_price)
+    public List<Cart> getcartmounttotal() throws Exception {
+        return mapper.getcartmounttotal();
+    }
 }

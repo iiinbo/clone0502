@@ -14,28 +14,28 @@
             height: 250px;
         }
     </style>
-    <script>
-        <%--   search 기능     --%>
-        let item_search = {
-            init : function () {
-                $('#search_btn').click(function (){
-                    item_search.send();
-                });
-            },
-            send : function () {
-                $('#search_form').attr({
-                    action: '/item/search', // marker 컨트롤러에서 처리.
-                    method: 'get'
-                });
-                $('#search_form').submit();
-            }
-        };
-        // 실행
-        $(function (){
-            item_search.init();
-        });
+<%--    <script>--%>
+<%--        &lt;%&ndash;   search 기능     &ndash;%&gt;--%>
+<%--        let item_search = {--%>
+<%--            init : function () {--%>
+<%--                $('#search_btn').click(function (){--%>
+<%--                    item_search.send();--%>
+<%--                });--%>
+<%--            },--%>
+<%--            send : function () {--%>
+<%--                $('#search_form').attr({--%>
+<%--                    action: '/item/search', // item 컨트롤러에서 처리.--%>
+<%--                    method: 'get'--%>
+<%--                });--%>
+<%--                $('#search_form').submit();--%>
+<%--            }--%>
+<%--        };--%>
+<%--        // 실행--%>
+<%--        $(function (){--%>
+<%--            item_search.init();--%>
+<%--        });--%>
 
-    </script>
+<%--    </script>--%>
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
@@ -45,27 +45,44 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">상품 전체현황 조회</h6>
-                <%-- search : form 수기 추가 --%>
-                <form id="search_form" class="form-inline well">
-                    <div class="form-group col-sm-6">
-                        <label class="control-label col-sm-2" for="name">Name:</label>
+                <%--item의 search 기능을 위해 새로 만든 DTO(ItemSearch), 정보를 담은 명칭은 ic: form  추가 action / method 필요 --%>
+                <%-- form태그 안에 action="/item/search" 이라고 써주면, 복잡하게 js 안적어도 된다!!!
+                단 절대 주의할 것!!! 이 방식을 선택하면, 발송putton type="submit" 필수 --%>
+                <form id="search_form"  action="/item/search" method="get" class="form-inline well"  >
+                    <div class="form-group col-sm-5">
+                        <label class="control-label col-sm-5" for="name">Name:</label>
                             <div>
-                                <input type="text" name="name"   class="form-control col-sm-6" id="name" placeholder="Enter name" value="${ic.name}">
+                                <input type="text" name="name"  class="form-control col-sm-6" id="name" placeholder="Enter name" value="${ic.name}">
                             </div>
                     </div>
-<%--                    <div class="form-group col-sm-6">--%>
-<%--                        <label class="control-label col-sm-2" for="price">Price:</label>--%>
-<%--                        <select class="form-control col-sm-6"  id="price" name="price">--%>
-<%--                            <option value=0>전체</option>--%>
-<%--                            <option value=10000  <c:if test="${ic.price}">selected</c:if>>10000원 상품보기</option>--%>
-<%--                            <option value=20000  <c:if test="${ic.price}">selected</c:if>>20000원 상품보기</option>--%>
-<%--                        </select>--%>
-<%--                    </div>--%>
-                    <div class="form-group">
-                            <button id="search_btn" type="button" class="btn btn-info">검색하기</button>
+
+                    <div class="form-group col-sm-5">
+                        <label class="control-label col-sm-5" for="price">Price:</label>
+                        <div>
+                            <input type="number" name="price"  class="form-control col-sm-6" id="price" placeholder="Enter price" value="${ic.price}">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-5">
+                        <label class="control-label col-sm-5" for="startdate">Start DATE:</label>
+                        <div>
+                            <input type="date" name="startdate"  class="form-control col-sm-6" id="startdate" placeholder="Enter startdate" value="${ic.startdate}">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group col-sm-5">
+                        <label class="control-label col-sm-5" for="enddate">End DATE:</label>
+                        <div>
+                            <input type="date" name="enddate"  class="form-control col-sm-6" id="enddate" placeholder="Enter enddate" value="${ic.enddate}">
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-2">
+                            <button id="search_btn" type="submit" class="btn btn-info">검색하기</button>
                     </div>
                 </form> <%--form 수기 추가 끝. --%>
             </div>
+            <%-- item 전체 조회 내용 시작 --%>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -89,7 +106,7 @@
                         </tr>
                         </tfoot>
                         <tbody>
-                        <%-- tbody 안에 : 컨트롤러에서 itemlist 라는 이름으로 정보 for로 가져오기  --%>
+                        <%-- tbody 안에 : item컨트롤러 /all에서 itemlist 라는 이름으로 정보 for로 가져오기  --%>
                         <c:forEach var="obj" items="${itemlist}">
                             <tr>
                                 <td>

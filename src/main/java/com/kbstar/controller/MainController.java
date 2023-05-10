@@ -4,6 +4,7 @@ import com.kbstar.dto.Adm;
 import com.kbstar.service.AdmService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,9 +20,12 @@ public class MainController {
     private BCryptPasswordEncoder encoder;
     @Autowired
     AdmService admservice;
+    @Value("${adminserver}")
+    String adminServer; // 관리자용 서버의 ip주소 일일이 수정하기 귀찮으니까. http:// ~~
     // 127.0.0.1
     @RequestMapping("/")
-    public String main() {
+    public String main(Model model) {
+        model.addAttribute("adminServer",  adminServer); // 메인 center에도, 관리자용 서버 일일이 치기 귀찮으니까.
         return "index";
     }
 
@@ -127,4 +131,13 @@ public class MainController {
         return "redirect:/adminfo?id=" + adm.getId();
     }
 
+    //
+    // **. websocket 페이지 만들기
+    @RequestMapping("/websocket") // 127.0.0.1:8080/websocket
+    public String websocket(Model model){
+        model.addAttribute("adminServer", adminServer); // jsp 파일에서, 관리자용서버 주소 일일이 치기 귀찮아
+        model.addAttribute("center",  "websocket"); // center에는 login 페이지 뿌려져라.
+        model.addAttribute("leftNav", "leftNav");
+        return "index";
+    }
 }
